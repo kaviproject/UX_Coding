@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Epsilon Coding Challenge</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Customcss file -->
+    <link rel="stylesheet" type="text/css" href="customStyle.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.js"></script>
+
+    <script type="text/javascript" class="init">
+        var item;
+        $(document).ready(function () {
+
+            $('#productinfo')
+                .removeClass('display')
+                .addClass('table ');
+            $('.no-records-found').remove();
+            item = [];
+            var count = 0;
+            $.ajax({
+                type: "GET",
+                url: 'http://usweb.dotomi.com/resources/swfs/cookies.json',
+                success: function (data) {
+                    $.each(data, function (key, val) {
+                        //debugger;
+                        item += '<tr>';
+                        item += '<td>' + val.name + '</td>';
+                        item += '<td>' + val.price + '</td>';
+                        item += '<td>' + val.category + '</td>';
+                        item += '</tr>';
+
+                    });
+                    $('#productinfo').append(item);
+                }
+            })
+        });
+        function UpdateTable() {
+            item = '';
+            if (document.getElementById("product").value) {
+                item += '<tr>';
+                item += '<td>' + document.getElementById("product").value + '</td>';
+                item += '<td>' + document.getElementById("price").value + '</td>';
+                item += '<td>' + document.getElementById("category").value + '</td>';
+                item += '</tr>';
+
+
+        $('#productinfo').append(item);
+    $('#productinfo').DataTable({
+        bPaginate: false,
+        bFilter: false,
+        bInfo: false,
+        bSortable: true
+    });              //  $('#productinfo').dataTable().fnAddData;
+                $('#productinfo_wrapper').removeClass();
+            }
+           
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <p class="mainHeader">Product List</p>
+        <div class="row">
+            <div class="col-md-7">
+                <div style="border:solid 1px #c4c4c4">
+                    <table id="productinfo" style="width:100%" class="display">
+                        <thead>
+                            <tr>
+                                <th id="theader" data-sortable="true">Product Name &nbsp;&nbsp;&nbsp;
+                                    <span class="fa fa-caret-down"></span>
+                                </th>
+                                <th>Price &nbsp;&nbsp;&nbsp;
+                                        <span class="fa fa-caret-down"></span></th>
+                                <th>Category &nbsp;&nbsp;&nbsp;
+                                        <span class="fa fa-caret-down"></span></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div style="border:solid 1px #c4c4c4;
+                text-align:left;">
+
+                    <br>
+                    <p class="headerText">Add New Product</p>
+                    <p class="spacing">
+                        <label>Product Name</label>
+                        <br>
+                        <input type="text" id="product" placeholder=" Enter Product Name" value="" class="textboxData" />
+                    </p>
+                    <p class="spacing">
+                        <label>Price</label>
+                        <br>
+                        <input type="value" id="price" placeholder=" Enter Price" value="" class="textboxData" />
+                    </p>
+                    <p class="spacing">
+                        <label>Category</label>
+                        <br>
+                        <input type="text" id="category" placeholder=" Enter Category" value="" class="textboxData" />
+                    </p>
+                    <p class="spacing">
+                        <input type="submit" value="Add Product" onClick="UpdateTable()" class="addProduct" />
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
