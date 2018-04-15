@@ -1,0 +1,12 @@
+ {
+        "SESE_ID": 2000,
+        "SESE_RULE": "AMB",
+        "SESP": "Penality Info - from json",
+        "SETR": "Tier Info"
+      },
+      {
+        "SESE_ID": 1000,
+        "SESE_RULE": "V0",
+        "SESP": "Penality Info - from json",
+        "SETR": "Tier Info"
+      }
